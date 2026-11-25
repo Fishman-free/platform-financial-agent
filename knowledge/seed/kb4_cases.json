@@ -1,0 +1,104 @@
+{
+  "kb": "cases",
+  "description": "KB4 历史案例库：判例检索与博主信用档案载体。【种子数据全部为合成演示案例（synthetic: true），不指向任何真实品牌/个人】；真实案例由团队数据管线经双人复核后接入（docs/04）。",
+  "entries": [
+    {
+      "entry_id": "kb4-case-0001",
+      "title": "合成案例：跨站榜单文集群（数码品类）",
+      "category": "poisoning_cluster",
+      "severity": 0.85,
+      "content": "案例摘要：同一数码产品的'十大排行榜'类文章在多个无关联域名下短期集中出现，文本模板高度一致（段落结构、句式、结论指向相同），配图感知哈希重复，均命中 ai_citation_bait 与 ranking_template 话术模式。处置结论：判定高风险，作为 AI 引用源自动剔除。判例价值：'多站同模板'是投毒集群在端侧的可见投影。",
+      "metadata": {
+        "case_type": "poisoning_cluster",
+        "subject": "合成品牌X（数码）",
+        "outcome": "high",
+        "linked_patterns": ["kb1-bait-002", "kb1-rank-001", "kb2-template_alignment"],
+        "synthetic": true
+      },
+      "source": "合成演示数据——形态参照央视3·15报道披露的集群特征类型化构造，不指向真实主体",
+      "checked_at": "2026-11-25"
+    },
+    {
+      "entry_id": "kb4-case-0002",
+      "title": "合成案例：保健品软文矩阵（健康品类）",
+      "category": "brand_campaign",
+      "severity": 0.8,
+      "content": "案例摘要：某合成保健品品牌以'问答自证'页面配合'专家人设'短视频矩阵推广，文案声称可替代药物治疗，命中医疗效果暗示与问答自证结构；评论区存在时间聚簇的模板化好评。处置结论：高风险；事实核验 contradicted（违反保健食品功能声称规定）。判例价值：话术+事实+评论三通道共振的典型形态。",
+      "metadata": {
+        "case_type": "brand_campaign",
+        "subject": "合成品牌Y（保健品）",
+        "outcome": "high",
+        "linked_patterns": ["kb1-exag-002", "kb1-bait-001", "kb1-rev-003"],
+        "synthetic": true
+      },
+      "source": "合成演示数据——参照监管通报的保健品违法广告形态类型化构造",
+      "checked_at": "2026-11-25"
+    },
+    {
+      "entry_id": "kb4-case-0003",
+      "title": "合成案例：伪实验室测评（护肤品类）",
+      "category": "brand_campaign",
+      "severity": 0.7,
+      "content": "案例摘要：'中立测评机构'人设账号发布护肤品对比内容，通篇无利益披露，结论唯一指向特定品牌；'实验数据'无可查证出处。处置结论：中高风险；人设与利益披露落差为主要证据。判例价值：中性第三方伪装的识别样板。",
+      "metadata": {
+        "case_type": "brand_campaign",
+        "subject": "合成品牌Z（护肤品）",
+        "outcome": "medium",
+        "linked_patterns": ["kb1-bait-003", "kb1-auth-002", "kb1-rev-001"],
+        "synthetic": true
+      },
+      "source": "合成演示数据——参照内容社区软广治理通报形态类型化构造",
+      "checked_at": "2026-11-25"
+    },
+    {
+      "entry_id": "kb4-infl-0001",
+      "title": "合成博主档案：高频推广型",
+      "category": "influencer_record",
+      "severity": 0.6,
+      "content": "博主信用档案（合成）：近一年推广内容占比超过八成，品类横跨保健、美妆、数码、教育等不相关领域；两次推广产品出现口碑翻车（评论区集中负评）；'专家'人设无执业资质信息。信用评分参考：0.3（低信用）。判例价值：跨品类专家人设+高推广频率是批量运营的强信号。",
+      "metadata": {
+        "case_type": "influencer_record",
+        "subject": "合成博主A",
+        "outcome": "low_credit",
+        "credit_score": 0.3,
+        "linked_patterns": ["kb1-auth-004"],
+        "synthetic": true
+      },
+      "source": "合成演示数据——博主信用评估维度参照母项目工作流一设计",
+      "checked_at": "2026-11-25"
+    },
+    {
+      "entry_id": "kb4-infl-0002",
+      "title": "合成博主档案：垂直合规型",
+      "category": "influencer_record",
+      "severity": 0.2,
+      "content": "博主信用档案（合成）：长期深耕单一垂直品类，推广内容明确标注'广告/合作'，有拒绝推荐与负面评价记录，历史无违规。信用评分参考：0.8（较高信用）。判例价值：合规推广博主的对照样本，防止检测系统'见推广就杀'。",
+      "metadata": {
+        "case_type": "influencer_record",
+        "subject": "合成博主B",
+        "outcome": "high_credit",
+        "credit_score": 0.8,
+        "linked_patterns": [],
+        "synthetic": true
+      },
+      "source": "合成演示数据——合规披露对照样本",
+      "checked_at": "2026-11-25"
+    },
+    {
+      "entry_id": "kb4-case-0004",
+      "title": "合成案例：AI问答自证页面群",
+      "category": "poisoning_cluster",
+      "severity": 0.9,
+      "content": "案例摘要：一组围绕'某品类哪个好'类检索问法构造的问答页面，问题覆盖主流 AI 搜索的常见问法变体，答案互引形成闭环，全部指向同一主体；页面发布时间呈固定间隔批量特征。处置结论：高风险集群。判例价值：面向生成式引擎检索形态构造内容的典型样本（母项目'语义结构高度对齐'特征的案例载体）。",
+      "metadata": {
+        "case_type": "poisoning_cluster",
+        "subject": "合成主体W（家电）",
+        "outcome": "high",
+        "linked_patterns": ["kb1-bait-001", "kb1-bait-002", "kb2-qa_self_structure"],
+        "synthetic": true
+      },
+      "source": "合成演示数据——参照央视3·15报道'多角度多数量铺设满足AI交叉验证表象'的类型化构造",
+      "checked_at": "2026-11-25"
+    }
+  ]
+}

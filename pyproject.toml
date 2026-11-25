@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "geo-guard"
+version = "0.1.0"
+description = "GEO 逆向甄别内核：面向用户的平台治理支持智能体（反 GEO 投毒模块）"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "马珠淇 / 平台治理智能体团队" }]
+dependencies = ["numpy>=1.26"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+geo-guard = "geo_guard.agent:main"
+
+[tool.setuptools.packages.find]
+include = ["geo_guard*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

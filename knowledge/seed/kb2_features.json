@@ -1,0 +1,111 @@
+{
+  "kb": "geo_structural_features",
+  "description": "KB2 GEO 结构特征库：特征计算在 detection/features.py，本库条目提供判定语义、正常范围参考与解释文案模板（feature_key 与检测器一一对应）。特征归纳自母项目 GEO 数据集标注（专业词汇滥用、语义结构高度对齐等）与央视3·15报道内容形态。",
+  "entries": [
+    {
+      "entry_id": "kb2-term_density",
+      "title": "专业术语堆砌密度",
+      "category": "lexical",
+      "severity": 0.6,
+      "content": "判定语义：专业词汇密度显著高于同品类基线且堆砌无解释——术语出现后无任何展开、举例或通俗化说明，功能是提高文本'专业可信'表象以被 AI 采信。正常科普文使用术语会伴随解释。",
+      "metadata": {
+        "feature_key": "term_density",
+        "detection_hint": "专业词汇密度显著高于同品类基线且堆砌无解释",
+        "normal_range": "科普类文本术语密度通常 1%~4%；持续 >8% 且无解释性句式为异常",
+        "evidence_template": "专业术语密度 {value:.1%}，超出参考基线 {baseline:.1%}"
+      },
+      "source": "母项目立项书'专业词汇滥用'特征归纳 + GEO 数据集标注维度",
+      "checked_at": "2026-11-25"
+    },
+    {
+      "entry_id": "kb2-qa_self_structure",
+      "title": "问答自证结构密度",
+      "category": "structural",
+      "severity": 0.8,
+      "content": "判定语义：自问自答结构（Q&A 形态）的密度异常——问句与常见 AI 检索问法对齐、答案全部指向同一主体。真实 FAQ 回答客观且包含限制条件；诱导型问答结论单一且互相引用自证。",
+      "metadata": {
+        "feature_key": "qa_self_structure",
+        "detection_hint": "问句/答句标记密度与'问-答结论指向一致性'联合度量",
+        "normal_range": "普通文章 Q&A 结构占比 <5%；>20% 且结论同向为异常",
+        "evidence_template": "问答自证结构占比 {value:.1%}，检测到 {qa_count} 组同向问答"
+      },
+      "source": "央视3·15报道'面向AI回答形态构造内容'的防御性类型化",
+      "checked_at": "2026-11-25"
+    },
+    {
+      "entry_id": "kb2-listicle_no_method",
+      "title": "无方法论榜单结构",
+      "category": "structural",
+      "severity": 0.7,
+      "content": "判定语义：榜单/排名体裁（Top N、十大、排行榜标记）存在但评选方法论要素完全缺失——无样本范围、无数据口径、无评审流程、无时间窗口。方法论缺失度越高信号越强。",
+      "metadata": {
+        "feature_key": "listicle_no_method",
+        "detection_hint": "榜单标记词命中 且 方法论要素词（样本/口径/评审/数据来源）零命中",
+        "normal_range": "合规榜单通常含方法论说明段落；缺失全部要素为异常",
+        "evidence_template": "检测到榜单结构（{marker}）但方法论要素缺失度 {value:.0%}"
+      },
+      "source": "第一财经'榜单类内容是杜撰信息重灾区'调查报道类型化",
+      "checked_at": "2026-11-25"
+    },
+    {
+      "entry_id": "kb2-citation_bait_density",
+      "title": "无出处引用诱导密度",
+      "category": "lexical",
+      "severity": 0.75,
+      "content": "判定语义：'研究表明/权威数据/据统计/专家指出'类引用引导语的密度，与其后是否跟随可查证出处（机构名+报告名+时间）的比率。引导语密集而出处为零是典型的伪权威构造。",
+      "metadata": {
+        "feature_key": "citation_bait_density",
+        "detection_hint": "引用引导语计数 / 可查证出处计数 的失衡度",
+        "normal_range": "合规引用引导语后 80% 以上有具体出处；出处率 <20% 为异常",
+        "evidence_template": "引用引导语 {bait_count} 处，可查证出处 {real_count} 处，失衡度 {value:.0%}"
+      },
+      "source": "《广告法》第十一条引用规范 + 母项目'语义结构高度对齐'标注维度",
+      "checked_at": "2026-11-25"
+    },
+    {
+      "entry_id": "kb2-brand_seed_density",
+      "title": "品牌词植入密度",
+      "category": "lexical",
+      "severity": 0.65,
+      "content": "判定语义：单一商业主体名称在'看似中立'文本中的出现频率与位置分布——标题、每段首句、结论句高密度复现同一主体，是面向检索摘要的品牌播种痕迹。正常报道的主体分布与叙事结构一致。",
+      "metadata": {
+        "feature_key": "brand_seed_density",
+        "detection_hint": "最高频专名的密度 × 段落首句/结论句位置加权",
+        "normal_range": "中立文本单一品牌密度通常 <2%；>5% 且集中于结论位置为异常",
+        "evidence_template": "主体'{brand}'密度 {value:.1%}，其中 {conclusion_ratio:.0%} 位于段落首句或结论句"
+      },
+      "source": "母项目 GEO 数据集标注归纳 + 软文识别公开研究类型化",
+      "checked_at": "2026-11-25"
+    },
+    {
+      "entry_id": "kb2-template_alignment",
+      "title": "跨段语义结构对齐度",
+      "category": "structural",
+      "severity": 0.7,
+      "content": "判定语义：段落间句式结构、长度分布、开头模式的高度一致性——批量模板生成或同稿多改的痕迹。母项目标注归纳的'语义结构高度对齐'特征：正常写作的段落结构有自然变化，模板化内容结构方差异常小。",
+      "metadata": {
+        "feature_key": "template_alignment",
+        "detection_hint": "段落长度变异系数（过低）+ 段首句式重复率 + 段落嵌入互相似度（过高）联合度量",
+        "normal_range": "自然写作段落长度变异系数通常 >0.4；<0.2 且段首模式重复为异常",
+        "evidence_template": "段落结构对齐度 {value:.0%}（长度变异系数 {cv:.2f}，段首模式重复 {opener_ratio:.0%}）"
+      },
+      "source": "母项目立项书'语义结构高度对齐'识别维度（400+组标注归纳）",
+      "checked_at": "2026-11-25"
+    },
+    {
+      "entry_id": "kb2-cross_validation_web",
+      "title": "互引网络迹象（协同槽位）",
+      "category": "network",
+      "severity": 0.8,
+      "content": "判定语义：内容间互引构成闭环且指向同一利益主体的网络迹象。端侧仅可见局部信号（本文引用了'多个榜单/多位专家'但均不可查证、reuse_count 跨站复用计数）；完整互引图谱由云侧 F6 通道提供，缺失时按'未知'处理而非'无风险'。",
+      "metadata": {
+        "feature_key": "cross_validation_web",
+        "detection_hint": "不可查证互引计数 + 跨站复用计数（reuse_count）；云侧接入后替换为图谱指标",
+        "normal_range": "端侧无基线；仅当互引全部不可查证或 reuse_count>=2 时产出信号",
+        "evidence_template": "检测到 {unverifiable_refs} 处不可查证互引，跨站复用计数 {reuse_count}"
+      },
+      "source": "央视3·15报道'多站点协同铺设'手法类型化 + 母项目端云两级架构设计",
+      "checked_at": "2026-11-25"
+    }
+  ]
+}

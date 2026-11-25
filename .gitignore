@@ -11,6 +11,9 @@ dist/
 knowledge/*.db
 knowledge/*.sqlite
 knowledge/index/
+knowledge/cache/
+# 合成对抗集隔离目录：仅内部评测，永不入库/提交（docs/04 §4 红线）
+knowledge/adversarial/
 runtime/
 *.log
 
